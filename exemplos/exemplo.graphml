@@ -1,0 +1,167 @@
+<graphml xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd" xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <key id="parent" for="node" attr.name="parent" attr.type="string"/>
+  <key id="weight" for="node" attr.name="weight" attr.type="double">
+    <default>0.2</default>
+  </key>
+  <key id="label" for="node" attr.name="label" attr.type="string"/>
+  <key id="shape" for="node" attr.name="shape" attr.type="string">
+    <default>DIAMOND</default>
+  </key>
+  <key id="network" for="edge" attr.name="network" attr.type="string">
+    <default>2</default>
+  </key>
+  <key id="weight" for="edge" attr.name="weight" attr.type="double"/>
+  <key id="label" for="edge" attr.name="label" attr.type="string"/>
+  <key id="sourceArrowShape" for="edge" attr.name="sourceArrowShape" attr.type="string"/>
+  <key id="targetArrowShape" for="edge" attr.name="targetArrowShape" attr.type="string"/>
+  <key id="lineStyle" for="edge" attr.name="lineStyle" attr.type="string"/>
+  <graph edgedefault="undirected">
+    <node id="a01">
+      <data key="shape">ELLIPSE</data>
+      <data key="label">A01</data>
+      <data key="weight">0.45</data>
+    </node>
+    <node id="a02">
+      <data key="shape">TRIANGLE</data>
+      <data key="label">A02</data>
+      <data key="weight">0.22</data>
+    </node>
+    <node id="a03">
+      <data key="shape">OCTAGON</data>
+      <data key="label">A03</data>
+      <data key="weight">0.09</data>
+    </node>
+    <node id="a04">
+      <data key="label">A04</data>
+      <data key="weight">0.03</data>
+    </node>
+    <node id="a05">
+      <data key="shape">PARALLELOGRAM</data>
+      <data key="label">A05</data>
+      <data key="weight">0.1</data>
+    </node>
+    <node id="a06">
+      <data key="shape">ROUNDRECT</data>
+      <data key="label">A06</data>
+      <data key="weight">0.12</data>
+    </node>
+    <node id="a07">
+      <data key="shape">RECTANGLE</data>
+      <data key="label">A07</data>
+      <data key="weight">0.07</data>
+    </node>
+    <node id="a08">
+      <data key="shape">HEXAGON</data>
+      <data key="label">A08</data>
+      <data key="weight">0.16</data>
+    </node>
+    <node id="a09">
+      <data key="shape">VEE</data>
+      <data key="label">A09</data>
+      <data key="weight">0.45</data>
+    </node>
+    <edge id="e1" target="a08" directed="true" source="a08">
+      <data key="weight">0.2</data>
+      <data key="label">a08 (15) a08</data>
+      <data key="network">15</data>
+      <data key="lineStyle">SOLID</data>
+    </edge>
+    <edge id="e2" target="a08" directed="true" source="a08">
+      <data key="weight">0.4</data>
+      <data key="label">a08 (25) a08</data>
+      <data key="network">25</data>
+      <data key="lineStyle">DOT</data>
+    </edge>
+    <edge id="e3" target="a01" directed="true" source="a02">
+      <data key="targetArrowShape">diamond</data>
+      <data key="weight">0.4</data>
+      <data key="sourceArrowShape">diamond</data>
+      <data key="label">a01 (25) a02</data>
+      <data key="network">25</data>
+      <data key="lineStyle">SOLID</data>
+    </edge>
+    <edge id="e4" target="a02" directed="true" source="a01">
+      <data key="targetArrowShape">T</data>
+      <data key="weight">0.6</data>
+      <data key="sourceArrowShape">delta</data>
+      <data key="label">a02 (14) a01</data>
+      <data key="network">14</data>
+      <data key="lineStyle">DOT</data>
+    </edge>
+    <edge id="e5" target="a02" directed="true" source="a03">
+      <data key="targetArrowShape">circle</data>
+      <data key="weight">0.8</data>
+      <data key="sourceArrowShape">diamond</data>
+      <data key="label">a02 (15) a03</data>
+      <data key="network">15</data>
+      <data key="lineStyle">DOT</data>
+    </edge>
+    <edge id="e6" target="a02" source="a06">
+      <data key="targetArrowShape">none</data>
+      <data key="weight">0.2</data>
+      <data key="sourceArrowShape">none</data>
+      <data key="label">a02 (2) a06</data>
+      <data key="lineStyle">DOT</data>
+    </edge>
+    <edge id="e7" target="a06" source="a02">
+      <data key="targetArrowShape">none</data>
+      <data key="weight">0.2</data>
+      <data key="sourceArrowShape">none</data>
+      <data key="label">a06 (2) a02</data>
+      <data key="lineStyle">EQUAL_DASH</data>
+    </edge>
+    <edge id="e8" target="a08" directed="true" source="a09">
+      <data key="targetArrowShape">T</data>
+      <data key="weight">0.1</data>
+      <data key="sourceArrowShape">diamond</data>
+      <data key="label">a08 (24) a09</data>
+      <data key="network">15</data>
+      <data key="lineStyle">DOT</data>
+    </edge>
+    <edge id="e9" target="a05" source="a01">
+      <data key="targetArrowShape">delta</data>
+      <data key="weight">0.1</data>
+      <data key="sourceArrowShape">circle</data>
+      <data key="label">a05 (2) a01</data>
+      <data key="lineStyle">EQUAL_DASH</data>
+    </edge>
+    <edge id="e10" target="a05" source="a01">
+      <data key="targetArrowShape">delta</data>
+      <data key="weight">0.2</data>
+      <data key="sourceArrowShape">delta</data>
+      <data key="label">a05 (24) a01</data>
+      <data key="network">24</data>
+      <data key="lineStyle">SOLID</data>
+    </edge>
+    <edge id="e11" target="a05" source="a01">
+      <data key="targetArrowShape">none</data>
+      <data key="weight">0.4</data>
+      <data key="sourceArrowShape">none</data>
+      <data key="label">a05 (14) a01</data>
+      <data key="network">14</data>
+      <data key="lineStyle">LONG_DASH</data>
+    </edge>
+    <edge id="e12" target="a03" source="a07">
+      <data key="targetArrowShape">delta</data>
+      <data key="weight">0.3</data>
+      <data key="sourceArrowShape">T</data>
+      <data key="label">a03 (2) a07</data>
+      <data key="lineStyle">EQUAL_DASH</data>
+    </edge>
+    <edge id="e13" target="a04" source="a08">
+      <data key="targetArrowShape">T</data>
+      <data key="weight">0.2</data>
+      <data key="sourceArrowShape">T</data>
+      <data key="label">a04 (14) a08</data>
+      <data key="network">14</data>
+      <data key="lineStyle">EQUAL_DASH</data>
+    </edge>
+    <edge id="e14" target="a09" source="a04">
+      <data key="targetArrowShape">arrow</data>
+      <data key="weight">0.8</data>
+      <data key="sourceArrowShape">T</data>
+      <data key="label">a09 (2) a04</data>
+      <data key="lineStyle">LONG_DASH</data>
+    </edge>
+  </graph>
+</graphml>
