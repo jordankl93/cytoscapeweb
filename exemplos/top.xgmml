@@ -1,0 +1,93 @@
+<graph label="Cytoscape Web" directed="0" Graphic="1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cy="http://www.cytoscape.org" xmlns="http://www.cs.rpi.edu/XGMML">
+  <att name="documentVersion" value="0.1"/>
+  <att type="string" name="backgroundColor" value="#ffffff"/>
+  <att type="real" name="GRAPH_VIEW_ZOOM" value="1"/>
+  <att type="real" name="GRAPH_VIEW_CENTER_X" value="227.8"/>
+  <att type="real" name="GRAPH_VIEW_CENTER_Y" value="136.25"/>
+  <node label="a08" id="a08">
+    <graphics x="421.1" y="115.5" h="24" fill="#f5f5f5" type="ELLIPSE" labelanchor="c" cy:nodeTransparency="0.8" cy:nodeLabelFont="Arial-0-11" outline="#666666" w="24" width="1"/>
+  </node>
+  <node label="a02" id="a02">
+    <graphics x="134.25" y="114.7" h="24" fill="#f5f5f5" type="ELLIPSE" labelanchor="c" cy:nodeTransparency="0.8" cy:nodeLabelFont="Arial-0-11" outline="#666666" w="24" width="1"/>
+  </node>
+  <node label="a01" id="a01">
+    <graphics x="72.8" y="179.35" h="24" fill="#f5f5f5" type="ELLIPSE" labelanchor="c" cy:nodeTransparency="0.8" cy:nodeLabelFont="Arial-0-11" outline="#666666" w="24" width="1"/>
+  </node>
+  <node label="a03" id="a03">
+    <graphics x="223.15" y="112.7" h="24" fill="#f5f5f5" type="ELLIPSE" labelanchor="c" cy:nodeTransparency="0.8" cy:nodeLabelFont="Arial-0-11" outline="#666666" w="24" width="1"/>
+  </node>
+  <node label="a06" id="a06">
+    <graphics x="101.65" y="34.5" h="24" fill="#f5f5f5" type="ELLIPSE" labelanchor="c" cy:nodeTransparency="0.8" cy:nodeLabelFont="Arial-0-11" outline="#666666" w="24" width="1"/>
+  </node>
+  <node label="a09" id="a09">
+    <graphics x="441.1" y="34.5" h="24" fill="#f5f5f5" type="ELLIPSE" labelanchor="c" cy:nodeTransparency="0.8" cy:nodeLabelFont="Arial-0-11" outline="#666666" w="24" width="1"/>
+  </node>
+  <node label="a05" id="a05">
+    <graphics x="14.5" y="237.95" h="24" fill="#f5f5f5" type="ELLIPSE" labelanchor="c" cy:nodeTransparency="0.8" cy:nodeLabelFont="Arial-0-11" outline="#666666" w="24" width="1"/>
+  </node>
+  <node label="a07" id="a07">
+    <graphics x="305.5" y="106.4" h="24" fill="#f5f5f5" type="ELLIPSE" labelanchor="c" cy:nodeTransparency="0.8" cy:nodeLabelFont="Arial-0-11" outline="#666666" w="24" width="1"/>
+  </node>
+  <node label="a04" id="a04">
+    <graphics x="363.5" y="55.4" h="24" fill="#f5f5f5" type="ELLIPSE" labelanchor="c" cy:nodeTransparency="0.8" cy:nodeLabelFont="Arial-0-11" outline="#666666" w="24" width="1"/>
+  </node>
+  <node label="LEGAL" id="n1">
+    <graphics x="297.5" y="14.5" h="24" fill="#f5f5f5" type="RECTANGLE" labelanchor="c" cy:nodeTransparency="0.8" cy:nodeLabelFont="Arial-0-11" outline="#666666" w="24" width="1"/>
+  </node>
+  <edge label="e1" id="a08 (e1) a08" target="a08" source="a08" directed="false">
+    <att name="interaction" type="string" value="e1"/>
+    <graphics cy:targetArrowColor="#000000" cy:sourceArrow="0" cy:targetArrow="0" fill="#999999" cy:sourceArrowColor="#000000" cy:edgeLineType="SOLID" width="1"/>
+  </edge>
+  <edge label="e2" id="a08 (e2) a08" target="a08" source="a08" directed="false">
+    <att name="interaction" type="string" value="e2"/>
+    <graphics cy:targetArrowColor="#000000" cy:sourceArrow="0" cy:targetArrow="0" fill="#999999" cy:sourceArrowColor="#000000" cy:edgeLineType="SOLID" width="1"/>
+  </edge>
+  <edge label="e3" id="a02 (e3) a01" target="a01" source="a02" directed="false">
+    <att name="interaction" type="string" value="e3"/>
+    <graphics cy:targetArrowColor="#000000" cy:sourceArrow="0" cy:targetArrow="0" fill="#999999" cy:sourceArrowColor="#000000" cy:edgeLineType="SOLID" width="1"/>
+  </edge>
+  <edge label="e4" id="a01 (e4) a02" target="a02" source="a01" directed="false">
+    <att name="interaction" type="string" value="e4"/>
+    <graphics cy:targetArrowColor="#000000" cy:sourceArrow="0" cy:targetArrow="0" fill="#999999" cy:sourceArrowColor="#000000" cy:edgeLineType="SOLID" width="1"/>
+  </edge>
+  <edge label="e5" id="a03 (e5) a02" target="a02" source="a03" directed="false">
+    <att name="interaction" type="string" value="e5"/>
+    <graphics cy:targetArrowColor="#000000" cy:sourceArrow="0" cy:targetArrow="0" fill="#999999" cy:sourceArrowColor="#000000" cy:edgeLineType="SOLID" width="1"/>
+  </edge>
+  <edge label="e6" id="a06 (e6) a02" target="a02" source="a06" directed="false">
+    <att name="interaction" type="string" value="e6"/>
+    <graphics cy:targetArrowColor="#000000" cy:sourceArrow="0" cy:targetArrow="0" fill="#999999" cy:sourceArrowColor="#000000" cy:edgeLineType="SOLID" width="1"/>
+  </edge>
+  <edge label="e7" id="a02 (e7) a06" target="a06" source="a02" directed="false">
+    <att name="interaction" type="string" value="e7"/>
+    <graphics cy:targetArrowColor="#000000" cy:sourceArrow="0" cy:targetArrow="0" fill="#999999" cy:sourceArrowColor="#000000" cy:edgeLineType="SOLID" width="1"/>
+  </edge>
+  <edge label="e8" id="a09 (e8) a08" target="a08" source="a09" directed="false">
+    <att name="interaction" type="string" value="e8"/>
+    <graphics cy:targetArrowColor="#000000" cy:sourceArrow="0" cy:targetArrow="0" fill="#999999" cy:sourceArrowColor="#000000" cy:edgeLineType="SOLID" width="1"/>
+  </edge>
+  <edge label="e9" id="a01 (e9) a05" target="a05" source="a01" directed="false">
+    <att name="interaction" type="string" value="e9"/>
+    <graphics cy:targetArrowColor="#000000" cy:sourceArrow="0" cy:targetArrow="0" fill="#999999" cy:sourceArrowColor="#000000" cy:edgeLineType="SOLID" width="1"/>
+  </edge>
+  <edge label="e10" id="a01 (e10) a05" target="a05" source="a01" directed="false">
+    <att name="interaction" type="string" value="e10"/>
+    <graphics cy:targetArrowColor="#000000" cy:sourceArrow="0" cy:targetArrow="0" fill="#999999" cy:sourceArrowColor="#000000" cy:edgeLineType="SOLID" width="1"/>
+  </edge>
+  <edge label="e11" id="a01 (e11) a05" target="a05" source="a01" directed="false">
+    <att name="interaction" type="string" value="e11"/>
+    <graphics cy:targetArrowColor="#000000" cy:sourceArrow="0" cy:targetArrow="0" fill="#999999" cy:sourceArrowColor="#000000" cy:edgeLineType="SOLID" width="1"/>
+  </edge>
+  <edge label="e12" id="a07 (e12) a03" target="a03" source="a07" directed="false">
+    <att name="interaction" type="string" value="e12"/>
+    <graphics cy:targetArrowColor="#000000" cy:sourceArrow="0" cy:targetArrow="0" fill="#999999" cy:sourceArrowColor="#000000" cy:edgeLineType="SOLID" width="1"/>
+  </edge>
+  <edge label="e13" id="a08 (e13) a04" target="a04" source="a08" directed="false">
+    <att name="interaction" type="string" value="e13"/>
+    <graphics cy:targetArrowColor="#000000" cy:sourceArrow="0" cy:targetArrow="0" fill="#999999" cy:sourceArrowColor="#000000" cy:edgeLineType="SOLID" width="1"/>
+  </edge>
+  <edge label="e14" id="a04 (e14) a09" target="a09" source="a04" directed="false">
+    <att name="interaction" type="string" value="e14"/>
+    <graphics cy:targetArrowColor="#000000" cy:sourceArrow="0" cy:targetArrow="0" fill="#999999" cy:sourceArrowColor="#000000" cy:edgeLineType="SOLID" width="1"/>
+  </edge>
+</graph>
