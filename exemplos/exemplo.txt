@@ -1,6 +1,6 @@
-teste1	teste2
-teste2	teste4
-teste3	teste2
-teste4	teste1
-teste5	teste1
-teste5	teste1
+teste1	teste2	2
+teste2	teste4	4
+teste3	teste2	1.5
+teste4	teste1	1
+teste5	teste1	10
+teste5	teste1	0.5

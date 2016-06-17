@@ -27,8 +27,7 @@
  License along with this library; if not, write to the Free Software
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
-$(function () {
-    var leitorTXT = new FileReader();
+$(function () {    
     /*$("#content").html('\
      <div class="tools">\
      <button id="reapplyLayout">Reapply layout</button>\
@@ -40,63 +39,63 @@ $(function () {
      Cytoscape Web will replace the contents of this div with your graph.\
      </div>\
      ');*/
-    leitorTXT.onload = leTXT;
+	
+	//VARIÁVEIS JS
 	var d1, d2;
     var div_id = "cytoscapeweb";
     var vis;
-
-    // Cria um objeto de modelo de rede
-    var network_json = {
-        //Aqui adicionamos os atributos e seus tipos
-        dataSchema: {
-            nodes: [{name: "label", type: "string"},
-                {name: "foo", type: "string"}
-            ],
-            edges: [{name: "label", type: "string"},
-                {name: "bar", type: "string"}
-            ]
-        },
-        //Aqui criamos os objetos
-        data: {
-            nodes: [{id: "1", label: "1", foo: "Is this the real life?"},
-                {id: "2", label: "2", foo: "Is this just fantasy?"}
-            ],
-            edges: [{id: "2to1", target: "1", source: "2", label: "2 to 1", bar: "Caught in a landslide..."}
-            ]
-        }
-    };
-
-    /*function draw(url) {
-     $("input, select").attr("disabled", true);
-     
-     $.get(url, function(dt) {
-     if (typeof dt !== "string") {
-     if (window.ActiveXObject) {
-     dt = dt.xml;
-     } else {
-     dt = (new XMLSerializer()).serializeToString(dt);
-     }
-     }
-     
-     options.layout = { name: "CompoundSpringEmbedder" };
-     options.network = dt;
-     options.nodeLabelsVisible = $("#showNodeLabels").is(":checked");
-     
-     d1 = new Date();
-     vis.draw(options);
-     });
-     }*/
-
-    //Função que abre um arquivo de networksF
-    function carregaTXT(evt) {
+	
+	var leitorTXT = new FileReader();
+    leitorTXT.onload = leArquivoArestas;
+	
+	//FUNÇÕES UTEIS
+	//Função que abre um arquivo de networksF
+    function carregaArquivoArestas(evt) {
         var file = evt.target.files[0];
         leitorTXT.readAsText(file);
     }
     
     //Função le o arquivo e exibe na tela - antiga função draw
-    function leTXT(evt) {
+    function leArquivoArestas(evt) {
         var fileArr = evt.target.result;
-        fileArr = fileArr.replace(/\t/g, " x ");
+        var linhas = fileArr.split("\n");
+		var j = 0;
+		var id = 1;
+		
+		var data = '<graphml>' +
+				   '<key attr.type="string" attr.name="label" for="all" id="label"/>' +
+				   '<key attr.type="double" attr.name="weight" for="all" id="weight"/>' +
+				   '<graph edgedefault="undirected">';
+		
+		for(j=0; j<linhas.length; j++){
+			var linha = linhas[j];
+			var itens = linha.split("\t", -1);
+			
+			if(itens.length == 3){ //enquanto possui apenas 3 colunas
+				for (i = 0; i < itens.length; i++) {
+					if (i == 2) {							
+						data += '<edge id="'+id+'" source="'+ (id-2) +'" target="'+ (id-1) +'">' +
+								'<data key="weight">'+ itens[i] +'</data>' +
+								'<data key="label">Edge '+i+'</data>' +
+								'</edge>';
+						
+					}
+					else{					
+						data += '<node id="'+id+'">' +
+								'<data key="weight">'+Math.random()+'</data>' +
+								'<data key="label">'+itens[i]+'</data>' +
+								'</node>';
+					}
+					id++;
+				}				
+			}	
+		}
+		
+		data += '</graph></graphml>';
+		
+		draw(data);
+		
+		/*fileArr = fileArr.replace(/\t/g, " x ");
 
         if (typeof fileArr !== "string") {
             if (window.ActiveXObject) {
@@ -106,7 +105,7 @@ $(function () {
             }
         }
 
-        vis.draw({network: fileArr});
+        vis.draw({network: fileArr});*/
     }
 
     var _srcId;
@@ -134,7 +133,7 @@ $(function () {
 		var i;
 		for (i = 1; i <= nodesNumber; i++) {
 			data += '<node id="'+i+'">' +
-					'<data key="weight">'+Math.random()+'</data>' +
+					//'<data key="weight">'+Math.random()+'</data>' +
 					'<data key="label">Node '+i+'</data>' +
 					'</node>';
 		}
@@ -160,6 +159,26 @@ $(function () {
 		return data;
 	}
 	
+	/*function draw(url) {
+     $("input, select").attr("disabled", true);
+     
+     $.get(url, function(dt) {
+     if (typeof dt !== "string") {
+     if (window.ActiveXObject) {
+     dt = dt.xml;
+     } else {
+     dt = (new XMLSerializer()).serializeToString(dt);
+     }
+     }
+     
+     options.layout = { name: "CompoundSpringEmbedder" };
+     options.network = dt;
+     options.nodeLabelsVisible = $("#showNodeLabels").is(":checked");
+     
+     d1 = new Date();
+     vis.draw(options);
+     });
+     }*/
 	function draw(data) {
 		$("input, select").attr("disabled", true);
 
@@ -170,7 +189,7 @@ $(function () {
 				layout = { name: "Preset", options: { fitToScreen: true } };
 			} else { // GraphML or SIF
 				if ($("#layouts").val() !== "Preset") {
-					layout = { name: $("#layouts").val(), options: { weightAttr: "weight", restLength: 50, autoStabilize: false } };
+					layout = { name: $("#layouts").val(), options: { weightAttr: "weight", restLength: 30, autoStabilize: false } };
 				}
 			}
 
@@ -187,8 +206,9 @@ $(function () {
     // init and draw
     vis = new org.cytoscapeweb.Visualization(div_id, {swfPath: "swf/CytoscapeWeb", flashInstallerPath: "swf/playerProductInstall"});
 
+	//Adiciona menus do botão direito do mouse
     vis.ready(function () {
-        showElapsedTime();
+        //showElapsedTime();
 
 		var layout = vis.layout();
 		$("#layouts").val(layout.name);
@@ -287,57 +307,52 @@ $(function () {
 		alert(vis.sif());
 	});
     
-    /*Quando um arquivo é chamado*/
-    $("#fileCytoscape").change(function (evt) {
-        carregaTXT(evt);
+    /*Quando um arquivo de arestas é chamado*/
+    $("#fileCytoscapeEdge").change(function (evt) {
+        carregaArquivoArestas(evt);
     });
 
-    //draw("/file/example_graphs/compound.graphml");
+	$("#fileCytoscapeNode").change(function (evt) {
+		carregaTXT(evt);
+    });	
 
-    // draw options
-    /*var draw_options = {
-     // your data goes here
-     network: network_json,
-     // hide pan zoom
-     panZoomControlVisible: true 
-     };*/
-
+	// Cria um objeto de modelo de rede
+    var network_json = {
+        //Aqui adicionamos os atributos e seus tipos
+        dataSchema: {
+            nodes: [{name: "label", type: "string"},
+                {name: "foo", type: "string"}
+            ],
+            edges: [{name: "label", type: "string"},
+                {name: "bar", type: "string"}
+            ]
+        },
+        //Aqui criamos os objetos
+        data: {
+            nodes: [{id: "1", label: "1", foo: "Is this the real life?"},
+                {id: "2", label: "2", foo: "Is this just fantasy?"}
+            ],
+            edges: [{id: "2to1", target: "1", source: "2", label: "2 to 1", bar: "Caught in a landslide..."}
+            ]
+        }
+    };
+	
     // options used for Cytoscape Web
     var options = {
         nodeTooltipsEnabled: true,
         edgeTooltipsEnabled: true,
-        edgesMerged: false,
+        edgesMerged: false,		
         visualStyle: {
             global: {
                 backgroundColor: "#fefefe",
                 tooltipDelay: 1000
             },
             nodes: {
-                shape: "OCTAGON",
-                compoundShape: "RECTANGLE",
-                opacity: 0.9,
-                size: 30,
-                borderWidth: 2,
-                borderColor: "#707070",
-                color: "#00008B",
-                compoundBorderColor: "#abcfd6",
-                compoundBorderWidth: 2,
-                labelFontColor: "#505050",
-                selectionGlowOpacity: 0,
-                selectionBorderColor: "ff0000",
-                hoverBorderWidth: 4
+                size: 30
             },
-            edges: {
-                color: "#FFA500",
-                width: {defaultValue: 2, continuousMapper: {attrName: "weight", minValue: 2, maxValue: 8}},
-                mergeWidth: {defaultValue: 2, continuousMapper: {attrName: "weight", minValue: 2, maxValue: 8}},
-                mergeColor: "#0b94b1",
-                opacity: 0.7,
-                labelFontSize: 10,
-                labelFontWeight: "bold",
-                selectionGlowOpacity: 0,
-                selectionColor: "ff0000",
-                tooltipText: "${weight}"
+            edges: {                
+                width: {defaultValue: 2, continuousMapper: {attrName: "weight", minValue: -1, maxValue: 20}},
+				tooltipText: "${weight}"
             }
         },
         network: network_json,
