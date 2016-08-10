@@ -48,7 +48,14 @@
                         <div>
                             <label>Networks:</label>
 								<div id="file">
+									<!-- Input file, com o multiple do lado,
+									para indentificar que o usuário vai poder adicionar
+									mais de um arquivo de uma vez só. -->									
+									<input id="fileCytoscapeNode" type="file" name="text" accept="text/*">
+									<input id="abrirArquivosNos" type="submit" value="Abrir">
+									
 									<input id="fileCytoscapeEdge" type="file" name="text" accept="text/*">
+									<input id="abrirArquivosArestas" type="submit" value="Abrir">
 								</div>
                             <br/><hr/>
                             <label># Nodes:</label> <input id="nodesNumber" type="text"/><br/>

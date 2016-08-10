@@ -1,0 +1,6 @@
+teste1	green	8.5
+teste2	blue	8
+teste3	red	10
+teste4	blue	9
+teste5	yellow	9
+teste6	green	11

@@ -45,14 +45,57 @@ $(function () {
     var div_id = "cytoscapeweb";
     var vis;
 	
-	var leitorTXT = new FileReader();
-    leitorTXT.onload = leArquivoArestas;
+	var leitorNosTXT = new FileReader();
+	var leitorArestasTXT = new FileReader();
+	leitorNosTXT.onload = leArquivoNos;
+    leitorArestasTXT.onload = leArquivoArestas;
 	
 	//FUNÇÕES UTEIS
-	//Função que abre um arquivo de networksF
-    function carregaArquivoArestas(evt) {
-        var file = evt.target.files[0];
-        leitorTXT.readAsText(file);
+	//-------------------- Funções para criar nós ------------------------//
+	function abrirArquivosNos(){
+		var no = document.getElementById("fileCytoscapeNode").files;
+		leitorNosTXT.readAsText(no[0]);
+	}
+	
+	function leArquivoNos(evt){
+		var fileArr = evt.target.result;
+        var linhas = fileArr.split("\n");
+		var j = 0;
+		
+		var data = '<graphml>' +
+				   '<key attr.type="string" attr.name="label" for="all" id="label"/>' +
+				   '<key attr.type="double" attr.name="weight" for="all" id="weight"/>' +
+				   '<key attr.type="color" attr.name="color" for="all" id="color"/>' +
+				   '<graph edgedefault="undirected">';
+		
+		for(j=0; j<linhas.length; j++){
+			var linha = linhas[j];
+			var itens = linha.split("\t", -1);			
+			
+			//if(itens[1] > 1){
+				data += '<node id="'+itens[0]+'">' +
+						'<data key="color">'+itens[1]+'</data>' +
+						'<data key="weight">'+parseFloat(itens[2])+'</data>' +
+						'<data key="label">'+itens[0]+'</data>' +
+						'</node>';
+			//}
+		}
+		
+		data += '</graph></graphml>';
+		
+		draw(data);
+	}
+	
+	//-------------------- Funções para criar arestas ------------------------//	
+	function abrirArquivosArestas(){
+		var arquivo = document.getElementById("fileCytoscapeEdge").files;
+		carregaArquivoArestas(arquivo[0]);
+	}
+	
+	//Função que abre um arquivo de arestas networksF
+    function carregaArquivoArestas(arquivo) {
+        //var file = evt.target.files[0];
+        leitorArestasTXT.readAsText(arquivo);
     }
     
     //Função le o arquivo e exibe na tela - antiga função draw
@@ -62,17 +105,21 @@ $(function () {
 		var j = 0;
 		var id = 1;
 		
-		var data = '<graphml>' +
+		/* var data = '<graphml>' +
 				   '<key attr.type="string" attr.name="label" for="all" id="label"/>' +
 				   '<key attr.type="double" attr.name="weight" for="all" id="weight"/>' +
-				   '<graph edgedefault="undirected">';
+				   '<graph edgedefault="undirected">'; */
 		
+		var lista = new Array();
 		for(j=0; j<linhas.length; j++){
 			var linha = linhas[j];
 			var itens = linha.split("\t", -1);
-			
+					
 			if(itens.length == 3){ //enquanto possui apenas 3 colunas
-				for (i = 0; i < itens.length; i++) {
+				
+				lista.push({ group: "edges", color: "#0B94B1", data: { source: itens[0], target: itens[1], weight: parseInt(itens[2]) }});
+				
+				/* for (i = 0; i < itens.length; i++) {
 					if (i == 2) {							
 						data += '<edge id="'+id+'" source="'+ (id-2) +'" target="'+ (id-1) +'">' +
 								'<data key="weight">'+ itens[i] +'</data>' +
@@ -87,13 +134,15 @@ $(function () {
 								'</node>';
 					}
 					id++;
-				}				
+				} */
 			}	
 		}
 		
-		data += '</graph></graphml>';
+		vis.addElements(lista, true);
 		
-		draw(data);
+		/* data += '</graph></graphml>';
+		
+		draw(data); */
 		
 		/*fileArr = fileArr.replace(/\t/g, " x ");
 
@@ -107,6 +156,8 @@ $(function () {
 
         vis.draw({network: fileArr});*/
     }
+	
+	// ----------------------------------------------------------------------------	
 
     var _srcId;
     // Função para adicionar nova aresta
@@ -202,6 +253,7 @@ $(function () {
 			vis.draw(options);
 		}
 	}
+	//FIM FUNÇÕES UTEIS
 
     // init and draw
     vis = new org.cytoscapeweb.Visualization(div_id, {swfPath: "swf/CytoscapeWeb", flashInstallerPath: "swf/playerProductInstall"});
@@ -308,13 +360,19 @@ $(function () {
 	});
     
     /*Quando um arquivo de arestas é chamado*/
-    $("#fileCytoscapeEdge").change(function (evt) {
+    /*$("#fileCytoscapeEdge").change(function (evt) {
         carregaArquivoArestas(evt);
+    });*/
+	$("#abrirArquivosArestas").click(function (evt) {
+        abrirArquivosArestas();
     });
 
-	$("#fileCytoscapeNode").change(function (evt) {
+	/*$("#fileCytoscapeNode").change(function (evt) {
 		carregaTXT(evt);
-    });	
+    });*/
+	$("#abrirArquivosNos").click(function (evt) {
+        abrirArquivosNos();
+    });
 
 	// Cria um objeto de modelo de rede
     var network_json = {
@@ -348,10 +406,21 @@ $(function () {
                 tooltipDelay: 1000
             },
             nodes: {
-                size: 30
+				size: { defaultValue: 12, continuousMapper: { attrName: "weight", minValue: 12, maxValue: 36 } },
+				color: {
+					discreteMapper: {
+						attrName: "id",
+						entries: [
+							{ attrValue: 1, value: "#0B94B1" },
+							{ attrValue: 2, value: "#9A0B0B" },
+							{ attrValue: 3, value: "#dddd00" }
+						]
+					}
+				}
             },
             edges: {                
                 width: {defaultValue: 2, continuousMapper: {attrName: "weight", minValue: -1, maxValue: 20}},
+				color: "333333",
 				tooltipText: "${weight}"
             }
         },
