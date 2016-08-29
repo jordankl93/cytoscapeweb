@@ -16,7 +16,7 @@
 		
         <!-- Meus Js -->
         <script type="text/javascript" src="js/cytoscapeTela.js"></script>        
-        
+        <script type="text/javascript" src="js/variaveis.js"></script>
         
         <style>
             /* The Cytoscape Web container must have its dimensions set. */
@@ -50,10 +50,12 @@
 								<div id="file">
 									<!-- Input file, com o multiple do lado,
 									para indentificar que o usuário vai poder adicionar
-									mais de um arquivo de uma vez só. -->									
+									mais de um arquivo de uma vez só. -->
+									<label># Arquivo de Nos:</label>									
 									<input id="fileCytoscapeNode" type="file" name="text" accept="text/*">
 									<input id="abrirArquivosNos" type="submit" value="Abrir">
-									
+									<br/>
+									<label># Arquivo de Arestas:</label>
 									<input id="fileCytoscapeEdge" type="file" name="text" accept="text/*">
 									<input id="abrirArquivosArestas" type="submit" value="Abrir">
 								</div>

@@ -1,54 +1,13 @@
-/*
- This file is part of Cytoscape Web.
- Copyright (c) 2009, The Cytoscape Consortium (www.cytoscape.org)
- 
- The Cytoscape Consortium is:
- - Agilent Technologies
- - Institut Pasteur
- - Institute for Systems Biology
- - Memorial Sloan-Kettering Cancer Center
- - National Center for Integrative Biomedical Informatics
- - Unilever
- - University of California San Diego
- - University of California San Francisco
- - University of Toronto
- 
- This library is free software; you can redistribute it and/or
- modify it under the terms of the GNU Lesser General Public
- License as published by the Free Software Foundation; either
- version 2.1 of the License, or (at your option) any later version.
- 
- This library is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- Lesser General Public License for more details.
- 
- You should have received a copy of the GNU Lesser General Public
- License along with this library; if not, write to the Free Software
- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- */
 $(function () {    
-    /*$("#content").html('\
-     <div class="tools">\
-     <button id="reapplyLayout">Reapply layout</button>\
-     <label for="showNodeLabels">Node Labels</label>\
-     <input type="checkbox" id="showNodeLabels"/> \
-     <label class="warning"><small>You can use the right-clik context menu to add and remove elements</small></label>\
-     </div>\
-     <div id="cytoscapeweb" width="*">\
-     Cytoscape Web will replace the contents of this div with your graph.\
-     </div>\
-     ');*/
-	
-	//VARIÁVEIS JS
-	var d1, d2;
-    var div_id = "cytoscapeweb";
-    var vis;
-	
-	var leitorNosTXT = new FileReader();
-	var leitorArestasTXT = new FileReader();
+
+	// Inicia o objeto de visualização
+    vis = new org.cytoscapeweb.Visualization(div_id, {swfPath: "swf/CytoscapeWeb", flashInstallerPath: "swf/playerProductInstall"});
+    
+	//Iniciando os objetos de leitura de arquivo
+	leitorNosTXT = new FileReader();
+	leitorArestasTXT = new FileReader();
 	leitorNosTXT.onload = leArquivoNos;
-    leitorArestasTXT.onload = leArquivoArestas;
+	leitorArestasTXT.onload = leArquivoArestas;
 	
 	//FUNÇÕES UTEIS
 	//-------------------- Funções para criar nós ------------------------//
@@ -59,31 +18,24 @@ $(function () {
 	
 	function leArquivoNos(evt){
 		var fileArr = evt.target.result;
-        var linhas = fileArr.split("\n");
-		var j = 0;
+		var linhas = fileArr.split("\n");
+		var j = 0;		
 		
-		var data = '<graphml>' +
-				   '<key attr.type="string" attr.name="label" for="all" id="label"/>' +
-				   '<key attr.type="double" attr.name="weight" for="all" id="weight"/>' +
-				   '<key attr.type="color" attr.name="color" for="all" id="color"/>' +
-				   '<graph edgedefault="undirected">';
+		var data;
 		
 		for(j=0; j<linhas.length; j++){
 			var linha = linhas[j];
-			var itens = linha.split("\t", -1);			
+			var itens = linha.split("\t", -1);
+
+			data = { id: itens[0],
+						 label: itens[0],
+						 color: itens[1],
+						 weight: parseFloat(itens[2]) };
+			 vis.addNode(240, 360, data, true);			
 			
-			//if(itens[1] > 1){
-				data += '<node id="'+itens[0]+'">' +
-						'<data key="color">'+itens[1]+'</data>' +
-						'<data key="weight">'+parseFloat(itens[2])+'</data>' +
-						'<data key="label">'+itens[0]+'</data>' +
-						'</node>';
-			//}
-		}
+			
+		}		
 		
-		data += '</graph></graphml>';
-		
-		draw(data);
 	}
 	
 	//-------------------- Funções para criar arestas ------------------------//	
@@ -104,12 +56,7 @@ $(function () {
         var linhas = fileArr.split("\n");
 		var j = 0;
 		var id = 1;
-		
-		/* var data = '<graphml>' +
-				   '<key attr.type="string" attr.name="label" for="all" id="label"/>' +
-				   '<key attr.type="double" attr.name="weight" for="all" id="weight"/>' +
-				   '<graph edgedefault="undirected">'; */
-		
+				
 		var lista = new Array();
 		for(j=0; j<linhas.length; j++){
 			var linha = linhas[j];
@@ -117,46 +64,13 @@ $(function () {
 					
 			if(itens.length == 3){ //enquanto possui apenas 3 colunas
 				
-				lista.push({ group: "edges", color: "#0B94B1", data: { source: itens[0], target: itens[1], weight: parseInt(itens[2]) }});
+				lista.push({ group: "edges", color: "#0B94B1", data: { source: itens[0], target: itens[1], weight: parseInt(itens[2]) }});				
 				
-				/* for (i = 0; i < itens.length; i++) {
-					if (i == 2) {							
-						data += '<edge id="'+id+'" source="'+ (id-2) +'" target="'+ (id-1) +'">' +
-								'<data key="weight">'+ itens[i] +'</data>' +
-								'<data key="label">Edge '+i+'</data>' +
-								'</edge>';
-						
-					}
-					else{					
-						data += '<node id="'+id+'">' +
-								'<data key="weight">'+Math.random()+'</data>' +
-								'<data key="label">'+itens[i]+'</data>' +
-								'</node>';
-					}
-					id++;
-				} */
 			}	
 		}
 		
-		vis.addElements(lista, true);
-		
-		/* data += '</graph></graphml>';
-		
-		draw(data); */
-		
-		/*fileArr = fileArr.replace(/\t/g, " x ");
-
-        if (typeof fileArr !== "string") {
-            if (window.ActiveXObject) {
-                fileArr = fileArr.xml;
-            } else {
-                fileArr = (new XMLSerializer()).serializeToString(fileArr);
-            }
-        }
-
-        vis.draw({network: fileArr});*/
-    }
-	
+		vis.addElements(lista, true);		
+    }	
 	// ----------------------------------------------------------------------------	
 
     var _srcId;
@@ -208,28 +122,8 @@ $(function () {
 		data += '</graph></graphml>';
 
 		return data;
-	}
+	}	
 	
-	/*function draw(url) {
-     $("input, select").attr("disabled", true);
-     
-     $.get(url, function(dt) {
-     if (typeof dt !== "string") {
-     if (window.ActiveXObject) {
-     dt = dt.xml;
-     } else {
-     dt = (new XMLSerializer()).serializeToString(dt);
-     }
-     }
-     
-     options.layout = { name: "CompoundSpringEmbedder" };
-     options.network = dt;
-     options.nodeLabelsVisible = $("#showNodeLabels").is(":checked");
-     
-     d1 = new Date();
-     vis.draw(options);
-     });
-     }*/
 	function draw(data) {
 		$("input, select").attr("disabled", true);
 
@@ -254,9 +148,6 @@ $(function () {
 		}
 	}
 	//FIM FUNÇÕES UTEIS
-
-    // init and draw
-    vis = new org.cytoscapeweb.Visualization(div_id, {swfPath: "swf/CytoscapeWeb", flashInstallerPath: "swf/playerProductInstall"});
 
 	//Adiciona menus do botão direito do mouse
     vis.ready(function () {
@@ -379,10 +270,13 @@ $(function () {
         //Aqui adicionamos os atributos e seus tipos
         dataSchema: {
             nodes: [{name: "label", type: "string"},
-                {name: "foo", type: "string"}
+                {name: "foo", type: "string"},
+				{name: "color", type: "string"}, //Não funciona
+				{name: "weight", type: "number"}
             ],
             edges: [{name: "label", type: "string"},
-                {name: "bar", type: "string"}
+                {name: "bar", type: "string"},
+				{name: "weight", type: "number"}
             ]
         },
         //Aqui criamos os objetos
